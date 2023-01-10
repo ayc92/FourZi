@@ -1,0 +1,11 @@
+{
+  "name": "FourZi",
+  "version": "0.0.1",
+  "description": "A game for learning 4-word Chinese Chengyu",
+  "main": "index.js",
+  "author": "Andrew Chen <aychen92@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "read-excel-file": "^5.5.3"
+  }
+}
