@@ -17,23 +17,42 @@ class GameLoop:
         self._phrases_loader = XlsxPhrasesLoader(PHRASES_FILE_PATH)
 
     def run(self) -> None:
-        # 1. Generate 36 words
-        # 2. Display 36 words in 6x6 matrix
-        # 3. Collect user inputs (4 words)
-        # 4. Verify + calculate score, or return invalid
+        """
+        The main entry point.
+
+        1. Generate 36 words
+        2. Display 36 words in 6x6 matrix
+        3. Collect user inputs (4 words)
+        4. Verify + calculate score, or return invalid
+        """
         phrase_to_score = self._phrases_loader.load_phrases()
 
         words = self.generate_selectable_words(phrase_to_score)
         self.render_words_display(words)
 
     def generate_selectable_words(self, phrase_to_score: PhraseToScore) -> WordMatrix:
+        """
+        Generates a list of selectable words.
+
+        It's guaranteed that a list of 4-word phrases can be formed from this list of words,
+        such that no word is left over.
+        """
         return RandomWordsFromFourZiPhrasesGenerator(phrase_to_score).generate_words()
 
     def render_words_display(self, word_matrix: WordMatrix) -> None:
+        """
+        Rendering is just printing, for now.
+        """
         print(word_matrix)
 
     def ask_for_phrase(self) -> str:
-        pass
+        """
+        Ask the user for 4 words via 4 coordinates. 4 words = 1 phrase.
+        """
+        word_count = 0
+
+        while word_count < 4:
+            word_coords = self._ask_for_word()
 
     def validate_phrase(self, phrase: str) -> bool:
         pass
@@ -49,10 +68,12 @@ class GameLoop:
 
         try:
             _row = int(row)
-            _col = int(row)
+            _col = int(col)
         except ValueError:
             print("Improperly formatted coordinates. Try again!")
             return None
+
+        return _row, _col
 
 
 if __name__ == "main":
